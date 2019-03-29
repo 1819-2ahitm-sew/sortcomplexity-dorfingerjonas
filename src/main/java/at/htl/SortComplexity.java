@@ -1,29 +1,84 @@
 package at.htl;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class SortComplexity {
 
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
 
+
+        System.out.print("Anzahl der zu sortierenden Arrays: ");
+        int howManyArrays = scanner.nextInt();
+
+        System.out.print("Größe der Arrays: ");
+        int howManyElements = scanner.nextInt();
+
+        int[] times = new int[howManyArrays];
+
+        for (int i = 0; i < howManyArrays; i++) {
+            times[i] = (int) sortRandomArray(howManyElements);
+        }
+
+        getAverageSortTime(times);
+
+    }
+
+    private static int getAverageSortTime(int[] times) {
+        int sum = 0;
+
+        for (int i = 0; i < times.length; i++) {
+            sum += times[i];
+        }
+        return sum / times.length;
     }
 
     // Sorts an array of random numbers and returns the sorting run time in ms
     public static long sortRandomArray(int length) {
-        return 0;
+        int[] array = generateRandomArray(length);
+        long startTime = System.currentTimeMillis();
+
+        sort(array);
+
+        long stopTime = System.currentTimeMillis();
+
+        return stopTime - startTime;
     }
 
     // Returns an array of random numbers
     public static int[] generateRandomArray(int length) {
-        return null;
+        Random random = new Random();
+
+        int[] randomArray = new int[length];
+
+        for (int i = 0; i < randomArray.length; i++) {
+            randomArray[i] = random.nextInt(2000);
+        }
+        return randomArray;
     }
 
     // Sorts an array of numbers in ascending order
     public static void sort(int[] array) {
 
+        int k;
+
+        for (int i = 1; i < array.length; i++) {
+            k = array[i];
+            int j = i;
+
+            while (j > 0 && array[j - 1] > k) {
+                array[j] = array[j - 1];
+                j--;
+            }
+            array[j] = k;
+        }
     }
 
-    // Swaps the array elements with index i and j
-    public static void swap(int[] array, int i, int j) {
-
+    public static void printArray(int[] array) {
+        for (int i : array) {
+            System.out.println(i);
+        }
     }
 }
