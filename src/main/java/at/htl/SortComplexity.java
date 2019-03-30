@@ -1,14 +1,12 @@
 package at.htl;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class SortComplexity {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
 
         System.out.print("Anzahl der zu sortierenden Arrays: ");
         int howManyArrays = scanner.nextInt();
@@ -18,19 +16,22 @@ public class SortComplexity {
 
         int[] times = new int[howManyArrays];
 
+        System.out.println();
+
         for (int i = 0; i < howManyArrays; i++) {
             times[i] = (int) sortRandomArray(howManyElements);
+            System.out.println("Laufzeit zur Sortierung des " + (i+1) + ". Arrays: " + times[i] + "ms");
         }
 
-        getAverageSortTime(times);
+        System.out.println("\nDurchschnittliche Laufzeit: " + getAverageSortTime(times) + "ms");
 
     }
 
     private static int getAverageSortTime(int[] times) {
         int sum = 0;
 
-        for (int i = 0; i < times.length; i++) {
-            sum += times[i];
+        for (int time : times) {
+            sum += time;
         }
         return sum / times.length;
     }
@@ -73,12 +74,6 @@ public class SortComplexity {
                 j--;
             }
             array[j] = k;
-        }
-    }
-
-    public static void printArray(int[] array) {
-        for (int i : array) {
-            System.out.println(i);
         }
     }
 }
